@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { saveAs } from 'file-saver';
+import DataTable from './DataTable';
 
 const formatNumber = (num) => {
   return num ? num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0.00";
@@ -16,6 +18,8 @@ const cleanItemName = (name) => {
 const AnalysisResults = React.memo(({ data }) => {
   const { totalTransactions, totalEarners, totalSpenders, popularItems, leastPopularItems, averagePrices, transactionsByDay, topSpenders, topEarners, mostActiveTraders } = data;
 
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+
   const chartData = Object.entries(transactionsByDay || {}).map(([date, transactions]) => ({
     date,
     count: transactions.length,
@@ -26,6 +30,56 @@ const AnalysisResults = React.memo(({ data }) => {
     movingAverage: index < 6 ? null : 
       array.slice(index - 6, index + 1).reduce((sum, item) => sum + item.count, 0) / 7
   }));
+
+  const tableData = useMemo(() => {
+    return Object.entries(averagePrices || {}).map(([item, prices]) => ({
+      name: cleanItemName(item),
+      avgBuy: prices.buy,
+      avgSell: prices.sell,
+      highestPrice: Math.max(prices.buy, prices.sell),
+      lowestPrice: Math.min(prices.buy, prices.sell),
+    }));
+  }, [averagePrices]);
+
+  const mostImpactfulItems = useMemo(() => {
+    return Object.entries(averagePrices || {})
+      .map(([item, prices]) => {
+        // Only consider items that are sellable (have a sell price)
+        if (prices.sell === 0) {
+          return null;
+        }
+        const profitMargin = prices.sell - prices.buy;
+        const profitPercentage = ((prices.sell - prices.buy) / Math.abs(prices.buy)) * 100;
+        return {
+          name: cleanItemName(item),
+          profitMargin,
+          profitPercentage
+        };
+      })
+      .filter(item => item !== null && item.profitPercentage < 0) // Remove null items and keep only negative percentages
+      .sort((a, b) => b.profitPercentage - a.profitPercentage) // Sort from least negative to most negative
+      .slice(0, 5);
+  }, [averagePrices]);
+
+  const handleSort = (key, direction) => {
+    setSortConfig({ key, direction });
+  };
+
+  const handleExportCSV = () => {
+    const csvContent = [
+      ["Item Name", "Average Buy Price", "Average Sell Price", "Highest Price", "Lowest Price"],
+      ...tableData.map(item => [
+        item.name,
+        item.avgBuy,
+        item.avgSell,
+        item.highestPrice,
+        item.lowestPrice
+      ])
+    ].map(e => e.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, "price_analysis.csv");
+  };
 
   return (
     <div className="mt-8 space-y-8">
@@ -59,12 +113,12 @@ const AnalysisResults = React.memo(({ data }) => {
           </ul>
         </div>
         <div className="bg-white p-4 rounded-lg shadow">
-          <h3 className="text-lg font-semibold mb-2">Average Prices</h3>
+          <h3 className="text-lg font-semibold mb-2">Most Impactful Items</h3>
           <div className="h-48 overflow-y-auto">
             <ul className="list-disc list-inside">
-              {Object.entries(averagePrices || {}).map(([item, prices], index) => (
+              {mostImpactfulItems.map((item, index) => (
                 <li key={index}>
-                  {cleanItemName(item)}: Buy: ${formatNumber(prices.buy)}, Sell: ${formatNumber(prices.sell)}
+                  {item.name}: ${formatNumber(item.profitMargin)} margin ({formatNumber(item.profitPercentage)}% change)
                 </li>
               ))}
             </ul>
@@ -125,6 +179,14 @@ const AnalysisResults = React.memo(({ data }) => {
             </ResponsiveContainer>
           </div>
         </div>
+      </div>
+      <div className="bg-white p-4 rounded-lg shadow">
+        <h3 className="text-lg font-semibold mb-2">Detailed Price Analysis</h3>
+        <DataTable 
+          data={tableData} 
+          onSort={handleSort} 
+          onExportCSV={handleExportCSV}
+        />
       </div>
     </div>
   );

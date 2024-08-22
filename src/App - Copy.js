@@ -22,7 +22,7 @@ const App = () => {
       }
       const data = await parseLogFile(file, pluginType);
       setAnalysisData(data);
-      setFilteredData(processData(data));
+      setFilteredData(data);
       setFileName(file.name);
     } catch (err) {
       setError(err.message);
@@ -46,35 +46,6 @@ const App = () => {
       return false;
     }
     return true;
-  };
-
-  const processData = (data) => {
-    const { averagePrices, ...rest } = data;
-
-    // Calculate most impactful items
-    const mostImpactfulItems = Object.entries(averagePrices)
-      .map(([item, prices]) => {
-        // Only consider items that are sellable (have a sell price)
-        if (prices.sell === 0) {
-          return null;
-        }
-        const profitMargin = prices.sell - prices.buy;
-        const profitPercentage = ((prices.sell - prices.buy) / Math.abs(prices.buy)) * 100;
-        return {
-          name: item,
-          profitMargin,
-          profitPercentage
-        };
-      })
-      .filter(item => item !== null) // Remove null items
-      .sort((a, b) => a.profitPercentage - b.profitPercentage) // Sort by lowest percentage first
-      .slice(0, 5);
-
-    return {
-      ...rest,
-      averagePrices,
-      mostImpactfulItems
-    };
   };
 
   const handleDateRangeChange = useCallback((startDate, endDate) => {
@@ -187,7 +158,7 @@ const App = () => {
         playerTransactions,
       };
 
-      setFilteredData(processData(filtered));
+      setFilteredData(filtered);
     }
   }, [analysisData]);
 
