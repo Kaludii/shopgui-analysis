@@ -6,7 +6,7 @@ ShopGUI Analysis is a React-based web application designed to analyze and visual
 
 Click [Here](https://shopgui-analysis.vercel.app/ "Here") To View This Dashboard Online!
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/dcb142c7-62b8-4bc8-8381-e80871149393" width="44%" alt="EconomyShopGUI" /> &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/user-attachments/assets/82687390-4d32-4ff7-b158-7a1017921f31" width="45%" alt="ShopGUI+" /> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/1de0a661-a1b6-4d04-825c-42ff6b18d564" width="44%" alt="EconomyShopGUI" /> &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/user-attachments/assets/a7dfcfbf-9b94-49ee-afc2-d653515f3189" width="44%" alt="ShopGUI+" /> </p>
 
 ## Features
 
@@ -19,6 +19,8 @@ Click [Here](https://shopgui-analysis.vercel.app/ "Here") To View This Dashboard
 -   Daily transaction visualization with 7-day moving average trend
 -   Date range selection for focused analysis
 -   Player search functionality
+-   Detailed price analysis table with search and sort capabilities
+-   CSV export for further data analysis
 
 ## Usage
 
@@ -38,6 +40,8 @@ Users can upload their EconomyShopGUI or ShopGUI+ log files and interact with th
 
 -   **Date Range Selection**: Filter data by selecting specific date ranges.
 -   **Player Search**: Search for specific player's transaction history.
+-   **Detailed Price Analysis**: Use the interactive table to search, sort, and analyze item prices.
+-   **CSV Export**: Download the detailed price analysis data for offline analysis.
 
 ## Requirements
 
