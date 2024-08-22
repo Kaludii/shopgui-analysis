@@ -263,7 +263,19 @@ const App = () => {
         </div>
       </div>
       <footer className="mt-8 text-center text-sm text-gray-500">
-        <p>Developed by Kaludi | Made for EconomyShopGUI and ShopGUI+ Analytics</p>
+        <p>
+          Developed by{' '}
+          <a
+            href="https://github.com/Kaludii"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:text-blue-600 transition-colors"
+            title="Visit Kaludi's GitHub profile"
+          >
+            Kaludi
+          </a>{' '}
+          | Made for EconomyShopGUI and ShopGUI+ Analytics
+        </p>
       </footer>
     </div>
   );
