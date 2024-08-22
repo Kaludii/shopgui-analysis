@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# ShopGUI Analysis
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ShopGUI Analysis is a React-based web application designed to analyze and visualize transaction data from Minecraft servers using EconomyShopGUI and ShopGUI+ plugins. This tool provides valuable insights into server economy, player behavior, and item popularity.
 
-## Available Scripts
+## Web App
 
-In the project directory, you can run:
+Click [Here](https://shopgui-analysis.vercel.app/ "Here") To View This Dashboard Online!
 
-### `npm start`
+<p align="center"> <img src="https://github.com/user-attachments/assets/dcb142c7-62b8-4bc8-8381-e80871149393" width="44%" alt="EconomyShopGUI" /> &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/user-attachments/assets/82687390-4d32-4ff7-b158-7a1017921f31" width="45%" alt="ShopGUI+" /> </p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-   Support for both EconomyShopGUI and ShopGUI+ log file formats
+-   Comprehensive transaction analysis including total transactions, earners, and spenders
+-   Identification of most and least popular items
+-   Average price analysis with buy/sell price difference highlighting
+-   Top spenders and earners identification
+-   Most active traders list
+-   Daily transaction visualization with 7-day moving average trend
+-   Date range selection for focused analysis
+-   Player search functionality
 
-### `npm test`
+## Usage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Users can upload their EconomyShopGUI or ShopGUI+ log files and interact with the dashboard in the following ways:
 
-### `npm run build`
+### Data Analysis and Visualization
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   **Select Plugin Type**: Choose between EconomyShopGUI and ShopGUI+ formats.
+-   **Upload Log File**: Upload the server's shop transaction log file.
+-   **View Overall Statistics**: See total transactions, earners, and spenders.
+-   **Analyze Item Popularity**: View most and least popular items with their average buy/sell prices.
+-   **Price Analysis**: Examine average prices sorted by buy/sell price difference to identify potential exploits.
+-   **Player Analysis**: View top spenders, earners, and most active traders.
+-   **Transaction Trends**: Interact with charts showing daily transactions and 7-day moving averages.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Data Filtering
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   **Date Range Selection**: Filter data by selecting specific date ranges.
+-   **Player Search**: Search for specific player's transaction history.
 
-### `npm run eject`
+## Requirements
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+-   Node.js 14.0 or higher
+-   npm 6.0 or higher
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone the repository:
+   ```
+   git clone https://github.com/Kaludii/shopgui-analysis.git
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Navigate to the project directory:
+   ```
+   cd shopgui-analysis
+   ```
 
-## Learn More
+3. Install the required packages:
+   ```
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Run the app in development mode:
+   ```
+   npm start
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+5. To create a production build:
+   ```
+   npm run build
