@@ -6,7 +6,7 @@ ShopGUI Analysis is a React-based web application designed to analyze and visual
 
 Click [Here](https://shopgui-analysis.vercel.app/ "Here") To View This Dashboard Online!
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/1de0a661-a1b6-4d04-825c-42ff6b18d564" width="44%" alt="EconomyShopGUI" /> &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/user-attachments/assets/a7dfcfbf-9b94-49ee-afc2-d653515f3189" width="44%" alt="ShopGUI+" /> </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/cc23339b-58b2-45bf-892c-c40b604ad30a" width="44%" alt="EconomyShopGUI" /> &nbsp; &nbsp; &nbsp; &nbsp; <img src="https://github.com/user-attachments/assets/702eeab7-d1a5-40b4-999c-611275794bb9" width="44%" alt="ShopGUI+" /> </p>
 
 ## Features
 
