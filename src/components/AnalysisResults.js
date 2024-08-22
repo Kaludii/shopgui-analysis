@@ -32,19 +32,31 @@ const AnalysisResults = React.memo(({ data }) => {
   }));
 
   const tableData = useMemo(() => {
-    return Object.entries(averagePrices || {}).map(([item, prices]) => ({
-      name: cleanItemName(item),
-      avgBuy: prices.buy,
-      avgSell: prices.sell,
-      highestPrice: Math.max(prices.buy, prices.sell),
-      lowestPrice: Math.min(prices.buy, prices.sell),
-    }));
-  }, [averagePrices]);
+    return Object.entries(averagePrices || {}).map(([item, prices]) => {
+      const itemTransactions = Object.values(transactionsByDay).flat()
+        .filter(transaction => transaction.item === item);
+      
+      const totalBought = itemTransactions
+        .filter(transaction => transaction.action === 'bought')
+        .reduce((sum, transaction) => sum + transaction.quantity, 0);
+      
+      const totalSold = itemTransactions
+        .filter(transaction => transaction.action === 'sold')
+        .reduce((sum, transaction) => sum + transaction.quantity, 0);
+
+      return {
+        name: cleanItemName(item),
+        avgBuy: prices.buy,
+        avgSell: prices.sell,
+        totalBought,
+        totalSold,
+      };
+    });
+  }, [averagePrices, transactionsByDay]);
 
   const mostImpactfulItems = useMemo(() => {
     return Object.entries(averagePrices || {})
       .map(([item, prices]) => {
-        // Only consider items that are sellable (have a sell price)
         if (prices.sell === 0) {
           return null;
         }
@@ -56,8 +68,8 @@ const AnalysisResults = React.memo(({ data }) => {
           profitPercentage
         };
       })
-      .filter(item => item !== null && item.profitPercentage < 0) // Remove null items and keep only negative percentages
-      .sort((a, b) => b.profitPercentage - a.profitPercentage) // Sort from least negative to most negative
+      .filter(item => item !== null && item.profitPercentage < 0)
+      .sort((a, b) => b.profitPercentage - a.profitPercentage)
       .slice(0, 5);
   }, [averagePrices]);
 
@@ -67,13 +79,14 @@ const AnalysisResults = React.memo(({ data }) => {
 
   const handleExportCSV = () => {
     const csvContent = [
-      ["Item Name", "Average Buy Price", "Average Sell Price", "Highest Price", "Lowest Price"],
+      ["Item Name", "Average Buy Price", "Average Sell Price", "Total Bought", "Total Sold", "Buy/Sell %"],
       ...tableData.map(item => [
         item.name,
         item.avgBuy,
         item.avgSell,
-        item.highestPrice,
-        item.lowestPrice
+        item.totalBought,
+        item.totalSold,
+        ((item.avgSell - item.avgBuy) / item.avgBuy * 100).toFixed(2) + '%'
       ])
     ].map(e => e.join(",")).join("\n");
 

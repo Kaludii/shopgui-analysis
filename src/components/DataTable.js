@@ -11,13 +11,17 @@ const DataTable = ({ data, onSort, onExportCSV }) => {
     { header: 'Item Name', key: 'name' },
     { header: 'Average Buy', key: 'avgBuy' },
     { header: 'Average Sell', key: 'avgSell' },
-    { header: 'Highest Price', key: 'highestPrice' },
-    { header: 'Lowest Price', key: 'lowestPrice' },
+    { header: 'Total Bought', key: 'totalBought' },
+    { header: 'Total Sold', key: 'totalSold' },
     { header: 'Buy/Sell %', key: 'percentage' }
   ];
 
   const formatNumber = (num) => {
     return num ? num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0.00";
+  };
+
+  const formatInteger = (num) => {
+    return num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "0";
   };
 
   const calculatePercentage = (buy, sell) => {
@@ -142,8 +146,8 @@ const DataTable = ({ data, onSort, onExportCSV }) => {
                 <td className="border border-gray-300 p-2">{item.name}</td>
                 <td className="border border-gray-300 p-2">${formatNumber(item.avgBuy)}</td>
                 <td className="border border-gray-300 p-2">${formatNumber(item.avgSell)}</td>
-                <td className="border border-gray-300 p-2">${formatNumber(item.highestPrice)}</td>
-                <td className="border border-gray-300 p-2">${formatNumber(item.lowestPrice)}</td>
+                <td className="border border-gray-300 p-2">{formatInteger(item.totalBought)}</td>
+                <td className="border border-gray-300 p-2">{formatInteger(item.totalSold)}</td>
                 <td className="border border-gray-300 p-2">
                   {calculatePercentage(item.avgBuy, item.avgSell) !== null
                     ? `${calculatePercentage(item.avgBuy, item.avgSell)}%`
